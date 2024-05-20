@@ -5,4 +5,5 @@ The run process is pretty straightforward:
 2. Go into Package Manager Console and run "Update-Database"
 3. Compile and run.
 
-The points achieved are checked with a red mark in the ("[Final Project] Requirements.pdf") file.
+The points achieved are checked with a red mark in the ("[Final Project] Requirements.pdf") pdf file.
+The drawing for the database structure can be found in the ("ERD.png") image.
