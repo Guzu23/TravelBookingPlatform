@@ -326,5 +326,12 @@ namespace BusinessLayer.Services
             var user = e.User;
             Console.WriteLine($"User deactivated: {user.Username}");
         }
+
+        //Strategy pattern
+        public double GetUserHasToPay(Guid id)
+        {
+            PaymentService paymentService = new PaymentService(this);
+            return paymentService.CalculatePayment(id);
+        }
     }
 }

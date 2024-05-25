@@ -40,6 +40,14 @@ namespace WebAPI.Controllers
             return Ok(flightReservationsDto);
         }
 
+        [HttpGet("GetUserHasToPay")]
+        public ActionResult<double> GetUserHasToPay(Guid id)
+        {
+            //Strategy pattern
+            var pay = usersService.GetUserHasToPay(id);
+            return Ok(pay);
+        }
+
         [HttpPost("AddUser")]
         public IActionResult AddUser(UserDto userDto)
         {

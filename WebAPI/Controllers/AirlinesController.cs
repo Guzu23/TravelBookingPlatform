@@ -7,8 +7,9 @@ using BusinessLayer.Services;
 
 namespace WebAPI.Controllers
 {
-    [ApiController]
+    [ApiVersion("2.0")]
     [Route("[controller]")]
+    [ApiController]
     public class AirlinesController : ControllerBase
     {
         private readonly AirlinesService airlinesService;
