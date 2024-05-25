@@ -1,10 +1,8 @@
 #pragma warning disable IDE0058
 using DataAccessLayer.Repository;
 using DataAccessLayer;
-using BusinessLayer.Services.Delegates;
-using BusinessLayer.Services.Linq;
 using BusinessLayer.Contracts;
-using BusinessLayer.Services.Logger;
+using BusinessLayer.Services;
 
 namespace WebAPI
 {
@@ -26,6 +24,11 @@ namespace WebAPI
             builder.Services.AddScoped<IUserDelegate, UserDelegate>();
             builder.Services.AddScoped<ILinqHotelReservation, LinqHotelReservation>();
             builder.Services.AddScoped<BusinessLayer.Contracts.ILogger, Logger>();
+            builder.Services.AddScoped<BusinessLayer.Services.AirlinesService>();
+            builder.Services.AddScoped<BusinessLayer.Services.FlightReservationsService>();
+            builder.Services.AddScoped<BusinessLayer.Services.HotelReservationsService>();
+            builder.Services.AddScoped<BusinessLayer.Services.HotelsService>();
+            builder.Services.AddScoped<BusinessLayer.Services.UsersService>();
 
             //Database
             builder.Services.AddDbContext<MyDbContext>();

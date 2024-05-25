@@ -1,4 +1,4 @@
-﻿namespace WebAPI.Dto
+﻿namespace BusinessLayer.Dto
 {
     public class HotelReservationDto : BaseEntityDto
     {

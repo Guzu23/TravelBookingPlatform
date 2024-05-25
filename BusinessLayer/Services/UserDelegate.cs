@@ -1,7 +1,7 @@
 ﻿using BusinessLayer.Contracts;
 using DataAccessLayer.Models;
 
-namespace BusinessLayer.Services.Delegates
+namespace BusinessLayer.Services
 {
     public class UserDelegate : IUserDelegate
     {

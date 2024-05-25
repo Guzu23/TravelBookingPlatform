@@ -1,7 +1,7 @@
 ﻿using BusinessLayer.Contracts;
 using DataAccessLayer.Models;
 
-namespace BusinessLayer.Services.Logger
+namespace BusinessLayer.Services
 {
     public class Logger : ILogger
     {

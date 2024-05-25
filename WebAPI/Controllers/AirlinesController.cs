@@ -2,7 +2,8 @@
 using DataAccessLayer;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Dto;
+using BusinessLayer.Dto;
+using BusinessLayer.Services;
 
 namespace WebAPI.Controllers
 {
@@ -10,53 +11,26 @@ namespace WebAPI.Controllers
     [Route("[controller]")]
     public class AirlinesController : ControllerBase
     {
-        private readonly MyDbContext _context;
-        private readonly BusinessLayer.Contracts.ILogger _logger;
+        private readonly AirlinesService airlinesService;
 
-        public AirlinesController(MyDbContext context, BusinessLayer.Contracts.ILogger logger)
+        public AirlinesController(AirlinesService airlinesService)
         {
-            _context = context;
-            _logger = logger;
+            this.airlinesService = airlinesService;
         }
 
 
         [HttpGet("GetAirline")]
         public ActionResult<AirlineDto> GetAirline(Guid id)
         {
-            var airline = _context.Airlines.Find(id);
-
-            if (airline == null)
-            {
-                return NotFound(airline);
-            }
-
-            var airlineDto = new AirlineDto
-            {
-                Id = airline.Id,
-                Name = airline.Name,
-                Location = airline.Location,
-                ChairsLeft = airline.ChairsLeft,
-            };
-
-            _logger.LogAirlineRequestFromDB(airline);
-
+            var airlineDto = this.airlinesService.GetAirline(id);
+            if (airlineDto == null) return NotFound();
             return Ok(airlineDto);
         }
 
         [HttpPost("AddAirline")]
         public IActionResult AddAirline(AirlineDto airlineDto)
         {
-            var airline = new Airline
-            {
-                Name = airlineDto.Name,
-                Location = airlineDto.Location,
-                ChairsLeft = airlineDto.ChairsLeft,
-            };
-
-            _logger.LogAirlineInsertRequestToDB(airline);
-
-            _context.Airlines.Add(airline);
-            _context.SaveChanges();
+            this.airlinesService.AddAirline(airlineDto);
 
             return Ok();
         }
@@ -64,22 +38,7 @@ namespace WebAPI.Controllers
         [HttpPatch("UpdateAirline")]
         public IActionResult UpdateAirline(Guid id, AirlineDto updatedAirlineDto)
         {
-            var airline = _context.Airlines.FirstOrDefault(r => r.Id == id);
-            var oldAirline = airline;
-
-            if (airline == null)
-            {
-                return NotFound();
-            }
-
-            airline.Name = updatedAirlineDto.Name;
-            airline.Location = updatedAirlineDto.Location;
-            airline.ChairsLeft = updatedAirlineDto.ChairsLeft;
-
-            _logger.LogAirlineUpdateRequestInDB(oldAirline, airline);
-
-            _context.Airlines.Update(airline);
-            _context.SaveChanges();
+            airlinesService.UpdateAirline(id, updatedAirlineDto);
 
             return Ok();
         }
@@ -87,17 +46,7 @@ namespace WebAPI.Controllers
         [HttpDelete("DeleteAirline")]
         public IActionResult DeleteAirline(Guid id)
         {
-            var airline = _context.Airlines.FirstOrDefault(r => r.Id == id);
-
-            if (airline == null)
-            {
-                return NotFound(airline);
-            }
-
-            _logger.LogAirlineDeleteRequestFromDB(airline);
-
-            _context.Airlines.Remove(airline);
-            _context.SaveChanges();
+            airlinesService.DeleteAirline(id);
 
             return Ok();
         }
