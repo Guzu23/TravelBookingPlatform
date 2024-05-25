@@ -31,7 +31,6 @@ namespace WebAPI.Controllers
         public IActionResult AddAirline(AirlineDto airlineDto)
         {
             this.airlinesService.AddAirline(airlineDto);
-
             return Ok();
         }
 
