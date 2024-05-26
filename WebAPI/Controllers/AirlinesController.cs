@@ -37,7 +37,6 @@ namespace WebAPI.Controllers
         public IActionResult UpdateAirline(Guid id, AirlineDto updatedAirlineDto)
         {
             airlinesService.UpdateAirline(id, updatedAirlineDto);
-
             return Ok();
         }
 
@@ -45,7 +44,6 @@ namespace WebAPI.Controllers
         public IActionResult DeleteAirline(Guid id)
         {
             airlinesService.DeleteAirline(id);
-
             return Ok();
         }
 

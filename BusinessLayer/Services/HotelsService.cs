@@ -16,7 +16,7 @@ namespace BusinessLayer.Services
             this._logger = _logger;
         }
 
-        public HotelDto GetHotel(Guid id)
+        public HotelDto? GetHotel(Guid id)
         {
             Hotel hotel;
             try
@@ -24,12 +24,14 @@ namespace BusinessLayer.Services
                 hotel = _repository.GetById(id);
                 if (hotel == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningHotelNotExisting(id);
+                    return null;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithHotel(id);
+                return null;
             }
 
             var hotelDto = new HotelDto
@@ -68,12 +70,14 @@ namespace BusinessLayer.Services
                 hotel = _repository.GetById(id);
                 if (hotel == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningHotelNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithHotel(id);
+                return;
             }
 
             var oldHotel = hotel;
@@ -96,12 +100,14 @@ namespace BusinessLayer.Services
                 hotel = _repository.GetById(id);
                 if (hotel == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningHotelNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithHotel(id);
+                return;
             }
 
             _logger.LogHotelDeleteRequestFromDB(hotel);

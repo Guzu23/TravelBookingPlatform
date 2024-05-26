@@ -16,7 +16,7 @@ namespace BusinessLayer.Services
             this._logger = _logger;
         }
 
-        public AirlineDto GetAirline(Guid id)
+        public AirlineDto? GetAirline(Guid id)
         {
             Airline airline;
             try
@@ -24,11 +24,13 @@ namespace BusinessLayer.Services
                 airline = _repository.GetById(id);
                 if (airline == null)
                 {
+                    _logger.LogWarningAirlineNotExisting(id);
                     return null;
                 }
             }
             catch
             {
+                _logger.LogErrorSomethingWentWrongWithAirline(id);
                 return null;
             }
 
@@ -68,12 +70,14 @@ namespace BusinessLayer.Services
                 airline = _repository.GetById(id);
                 if (airline == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningAirlineNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithAirline(id);
+                return;
             }
 
             var oldAirline = airline;
@@ -96,12 +100,14 @@ namespace BusinessLayer.Services
                 airline = _repository.GetById(id);
                 if (airline == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningAirlineNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithAirline(id);
+                return;
             }
 
             _logger.LogAirlineDeleteRequestFromDB(airline);

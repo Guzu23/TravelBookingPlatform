@@ -16,7 +16,7 @@ namespace BusinessLayer.Services
             this._logger = _logger;
         }
 
-        public HotelReservationDto GetHotelReservation(Guid id)
+        public HotelReservationDto? GetHotelReservation(Guid id)
         {
             HotelReservation hotelReservation;
             try
@@ -24,12 +24,14 @@ namespace BusinessLayer.Services
                 hotelReservation = _repository.GetById(id);
                 if (hotelReservation == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningHotelReservationNotExisting(id);
+                    return null;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithHotelReservation(id);
+                return null;
             }
 
             var hotelReservationDto = new HotelReservationDto
@@ -74,12 +76,14 @@ namespace BusinessLayer.Services
                 hotelReservation = _repository.GetById(id);
                 if (hotelReservation == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningHotelReservationNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithHotelReservation(id);
+                return;
             }
 
             var oldHotelReservation = hotelReservation;
@@ -105,12 +109,14 @@ namespace BusinessLayer.Services
                 hotelReservation = _repository.GetById(id);
                 if (hotelReservation == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningHotelReservationNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithHotelReservation(id);
+                return;
             }
 
             _logger.LogHotelReservationDeleteRequestFromDB(hotelReservation);

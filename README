@@ -15,9 +15,13 @@ V2: Things implemented/fixed:
 - The code structure got fixed:
 	- Some services got implemented;
 	- The logic from controllers was moved in BusinessLayer in services;
-	- The project no longer uses MyDbContext. It now uses IRepository;
+	- Dto objects got moved to BusinessLayer;
+	- The project no longer uses MyDbContext to access the database. It now uses IRepository(which uses MyDbContext);
 	- The controllers are now cleaner;
 	- Some useless libraries got removed;
 	- The project structure is cleaner(There are no more 100000000000000 folders for each class).
 - Strategy Pattern got implemented;
-- A dummy Blazor WebAPI got implemented. It only shows the basic Hello World.
+- A dummy Blazor WebAPI got implemented. It only shows the basic Hello World;
+- Basic error handling got implemented and the logger was updated. The errors/warnings can be found in console and logs;
+- All warnings got fixed/disabled.
+- All the blue checkmarks from the ("[Final Project] Requirements.pdf") file were done in this version.

@@ -17,7 +17,7 @@ namespace BusinessLayer.Services
             this._logger = _logger;
         }
 
-        public FlightReservationDto GetFlightReservation(Guid id)
+        public FlightReservationDto? GetFlightReservation(Guid id)
         {
             FlightReservation flightReservation;
             try
@@ -25,12 +25,14 @@ namespace BusinessLayer.Services
                 flightReservation = _repository.GetById(id);
                 if (flightReservation == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningFlightReservationNotExisting(id);
+                    return null;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithFlightReservation(id);
+                return null;
             }
 
             var flightReservationDto = new FlightReservationDto
@@ -79,12 +81,14 @@ namespace BusinessLayer.Services
                 flightReservation = _repository.GetById(id);
                 if (flightReservation == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningFlightReservationNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithFlightReservation(id);
+                return;
             }
 
             var oldFlightReservation = flightReservation;
@@ -112,12 +116,14 @@ namespace BusinessLayer.Services
                 flightReservation = _repository.GetById(id);
                 if (flightReservation == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningFlightReservationNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithFlightReservation(id);
+                return;
             }
 
             _logger.LogFlightReservationDeleteRequestFromDB(flightReservation);

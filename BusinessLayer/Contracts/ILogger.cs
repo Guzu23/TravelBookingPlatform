@@ -7,6 +7,20 @@ namespace BusinessLayer.Contracts
         public void Log(string logPath, string log);
         public string GetLogPath();
 
+        //Error handling
+        public void LogErrorSomethingWentWrongWithAirline(Guid id);
+        public void LogErrorSomethingWentWrongWithFlightReservation(Guid id);
+        public void LogErrorSomethingWentWrongWithHotelReservation(Guid id);
+        public void LogErrorSomethingWentWrongWithHotel(Guid id);
+        public void LogErrorSomethingWentWrongWithUser(Guid id);
+
+        //Warning handling
+        public void LogWarningAirlineNotExisting(Guid id);
+        public void LogWarningFlightReservationNotExisting(Guid id);
+        public void LogWarningHotelReservationNotExisting(Guid id);
+        public void LogWarningHotelNotExisting(Guid id);
+        public void LogWarningUserNotExisting(Guid id);
+
         //Get Requests from DB
         public void LogAirlineRequestFromDB(Airline airline);
         public void LogFlightReservationRequestFromDB(FlightReservation flightReservation);

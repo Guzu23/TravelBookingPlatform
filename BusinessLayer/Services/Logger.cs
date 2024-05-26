@@ -26,6 +26,65 @@ namespace BusinessLayer.Services
             return logPath;
         }
 
+        public void LogErrorSomethingWentWrongWithAirline(Guid id)
+        {
+            string logPath = GetLogPath();
+            Log(logPath, $"[ERROR]: Something went wrong when accessing the Airline with the id {id}!\n" +
+                $"     Maybe a service couldn't access the database for some reason.\n");
+        }
+        public void LogErrorSomethingWentWrongWithFlightReservation(Guid id)
+        {
+            string logPath = GetLogPath();
+            Log(logPath, $"[ERROR]: Something went wrong when accessing the FlightReservation with the id {id}!\n" +
+                $"     Maybe a service couldn't access the database for some reason.\n");
+        }
+        public void LogErrorSomethingWentWrongWithHotelReservation(Guid id)
+        {
+            string logPath = GetLogPath();
+            Log(logPath, $"[ERROR]: Something went wrong when accessing the HotelReservation with the id {id}!\n" +
+                $"     Maybe a service couldn't access the database for some reason.\n");
+        }
+        public void LogErrorSomethingWentWrongWithHotel(Guid id)
+        {
+            string logPath = GetLogPath();
+            Log(logPath, $"[ERROR]: Something went wrong when accessing the Hotel with the id {id}!\n" +
+                $"     Maybe a service couldn't access the database for some reason.\n");
+        }
+        public void LogErrorSomethingWentWrongWithUser(Guid id)
+        {
+            string logPath = GetLogPath();
+            Log(logPath, $"[ERROR]: Something went wrong when accessing the User with the id {id}!\n" +
+                $"     Maybe a service couldn't access the database for some reason.\n");
+        }
+
+        public void LogWarningAirlineNotExisting(Guid id)
+        {
+            string logPath = GetLogPath();
+            Log(logPath, $"[WARNING]: The Airline with the id {id} doesn't exist!\n");
+        }
+        public void LogWarningFlightReservationNotExisting(Guid id)
+        {
+            string logPath = GetLogPath();
+            Log(logPath, $"[WARNING]: The FightReservation with the id {id} doesn't exist!\n");
+        }
+        public void LogWarningHotelReservationNotExisting(Guid id)
+        {
+            string logPath = GetLogPath();
+            Log(logPath, $"[WARNING]: The HotelReservation with the id {id} doesn't exist!\n");
+        }
+        public void LogWarningHotelNotExisting(Guid id)
+        {
+            string logPath = GetLogPath();
+            Log(logPath, $"[WARNING]: The Hotel with the id {id} doesn't exist!\n");
+        }
+        public void LogWarningUserNotExisting(Guid id)
+        {
+            string logPath = GetLogPath();
+            Log(logPath, $"[WARNING]: The User with the id {id} doesn't exist!\n");
+        }
+
+
+
         public string AirlineToString(Airline airline)
         {
             return
@@ -76,12 +135,14 @@ namespace BusinessLayer.Services
                 "     ImageProfile:     " + user.ImageProfile + "\n";
         }
 
+
+
         //Get Requests from DB
         public void LogAirlineRequestFromDB(Airline airline)
         {
             string logPath = GetLogPath();
             string log =
-                "Get Request of an Airline from the database:\n" +
+                "[INFO]: Get Request of an Airline from the database:\n" +
                 AirlineToString(airline);
             Log(logPath, log);
         }
@@ -89,7 +150,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Get Request of a FlightReservation from the database:\n" +
+                "[INFO]: Get Request of a FlightReservation from the database:\n" +
                 FlightReservationToString(flightReservation);
             Log(logPath, log);
         }
@@ -97,7 +158,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Get Request of a HotelReservation from the database:" + "\n" +
+                "[INFO]: Get Request of a HotelReservation from the database:" + "\n" +
                 HotelReservationToString(hotelReservation);
             Log(logPath, log);
         }
@@ -105,7 +166,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Get Request of a Hotel from the database:" + "\n" +
+                "[INFO]: Get Request of a Hotel from the database:" + "\n" +
                 HotelToString(hotel);
             Log(logPath, log);
         }
@@ -113,7 +174,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Get Request of an User from the database:" + "\n" +
+                "[INFO]: Get Request of an User from the database:" + "\n" +
                 UserToString(user);
             Log(logPath, log);
         }
@@ -125,7 +186,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Insert Request of an Airline to the database:\n" +
+                "[INFO]: Insert Request of an Airline to the database:\n" +
                 AirlineToString(airline);
             Log(logPath, log);
         }
@@ -133,7 +194,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Insert Request of a FlightReservation to the database:\n" +
+                "[INFO]: Insert Request of a FlightReservation to the database:\n" +
                 FlightReservationToString(flightReservation);
             Log(logPath, log);
         }
@@ -141,7 +202,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Insert Request of a HotelReservation to the database:" + "\n" +
+                "[INFO]: Insert Request of a HotelReservation to the database:" + "\n" +
                 HotelReservationToString(hotelReservation);
             Log(logPath, log);
         }
@@ -149,7 +210,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Insert Request of a Hotel to the database:" + "\n" +
+                "[INFO]: Insert Request of a Hotel to the database:" + "\n" +
                 HotelToString(hotel);
             Log(logPath, log);
         }
@@ -157,7 +218,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Insert Request of an User to the database:" + "\n" +
+                "[INFO]: Insert Request of an User to the database:" + "\n" +
                 UserToString(user);
             Log(logPath, log);
         }
@@ -168,7 +229,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Update Request of an Airline from the database:\n" +
+                "[INFO]: Update Request of an Airline from the database:\n" +
                 "  Old Airline:\n" +
                 AirlineToString(oldAirline) +
                 "  New Airline:\n" +
@@ -179,7 +240,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Update Request of a FlightReservation from the database:\n" +
+                "[INFO]: Update Request of a FlightReservation from the database:\n" +
                 "  Old Airline:\n" +
                 FlightReservationToString(oldFlightReservation) +
                 "  New Airline:\n" +
@@ -190,7 +251,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Update Request of a HotelReservation from the database:" + "\n" +
+                "[INFO]: Update Request of a HotelReservation from the database:" + "\n" +
                 "  Old Airline:\n" +
                 HotelReservationToString(oldHotelReservation) +
                 "  New Airline:\n" +
@@ -201,7 +262,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Update Request of a Hotel from the database:" + "\n" +
+                "[INFO]: Update Request of a Hotel from the database:" + "\n" +
                 "  Old Airline:\n" +
                 HotelToString(oldHotel) +
                 "  New Airline:\n" +
@@ -212,7 +273,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Update Request of an User from the database:" + "\n" +
+                "[INFO]: Update Request of an User from the database:" + "\n" +
                 "  Old Airline:\n" +
                 UserToString(oldUser) +
                 "  New Airline:\n" +
@@ -227,7 +288,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Delete Request of an Airline from the database:\n" +
+                "[INFO]: Delete Request of an Airline from the database:\n" +
                 AirlineToString(airline);
             Log(logPath, log);
         }
@@ -235,7 +296,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Delete Request of a FlightReservation from the database:\n" +
+                "[INFO]: Delete Request of a FlightReservation from the database:\n" +
                 FlightReservationToString(flightReservation);
             Log(logPath, log);
         }
@@ -243,7 +304,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Delete Request of a HotelReservation from the database:" + "\n" +
+                "[INFO]: Delete Request of a HotelReservation from the database:" + "\n" +
                 HotelReservationToString(hotelReservation);
             Log(logPath, log);
         }
@@ -251,7 +312,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Delete Request of a Hotel from the database:" + "\n" +
+                "[INFO]: Delete Request of a Hotel from the database:" + "\n" +
                 HotelToString(hotel);
             Log(logPath, log);
         }
@@ -259,7 +320,7 @@ namespace BusinessLayer.Services
         {
             string logPath = GetLogPath();
             string log =
-                "Delete Request of an User from the database:" + "\n" +
+                "[INFO]: Delete Request of an User from the database:" + "\n" +
                 UserToString(user);
             Log(logPath, log);
         }

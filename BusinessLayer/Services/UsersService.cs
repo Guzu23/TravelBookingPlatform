@@ -20,12 +20,14 @@ namespace BusinessLayer.Services
             this._flightReservationRepository = _flightReservationRepository;
             this._logger = _logger;
             this._userDelegate = userDelegate;
+            #pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
             this._userDelegate.UserActivated += OnUserActivated;
             this._userDelegate.UserDeactivated += OnUserDeactivated;
+            #pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 
         }
 
-        public UserDto GetUser(Guid id)
+        public UserDto? GetUser(Guid id)
         {
             User user;
             try
@@ -33,12 +35,14 @@ namespace BusinessLayer.Services
                 user = _repository.GetById(id);
                 if (user == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningUserNotExisting(id);
+                    return null;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithUser(id);
+                return null;
             }
 
             var userDto = new UserDto
@@ -55,7 +59,7 @@ namespace BusinessLayer.Services
             return userDto;
         }
 
-        public List<HotelReservationDto> GetUserHotelReservations(Guid id)
+        public List<HotelReservationDto>? GetUserHotelReservations(Guid id)
         {
             User user;
             try
@@ -63,12 +67,14 @@ namespace BusinessLayer.Services
                 user = _repository.GetById(id);
                 if (user == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningUserNotExisting(id);
+                    return null;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithUser(id);
+                return null;
             }
 
             List<HotelReservation> hotelReservations; 
@@ -108,7 +114,7 @@ namespace BusinessLayer.Services
             return hotelReservationsDto;
         }
 
-        public List<FlightReservationDto> GetUserFlightReservations(Guid id)
+        public List<FlightReservationDto>? GetUserFlightReservations(Guid id)
         {
             User user;
             try
@@ -116,12 +122,14 @@ namespace BusinessLayer.Services
                 user = _repository.GetById(id);
                 if (user == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningUserNotExisting(id);
+                    return null;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithUser(id);
+                return null;
             }
 
             List<FlightReservation> flightReservations;
@@ -192,12 +200,14 @@ namespace BusinessLayer.Services
                 user = _repository.GetById(id);
                 if (user == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningUserNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithUser(id);
+                return;
             }
 
             var oldUser = user;
@@ -236,12 +246,14 @@ namespace BusinessLayer.Services
                 user = _repository.GetById(id);
                 if (user == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningUserNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithUser(id);
+                return;
             }
 
             var oldUser = user;
@@ -263,12 +275,14 @@ namespace BusinessLayer.Services
                 user = _repository.GetById(id);
                 if (user == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningUserNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithUser(id);
+                return;
             }
 
             var oldUser = user;
@@ -290,12 +304,14 @@ namespace BusinessLayer.Services
                 user = _repository.GetById(id);
                 if (user == null)
                 {
-                    throw new NullReferenceException();
+                    _logger.LogWarningUserNotExisting(id);
+                    return;
                 }
             }
             catch
             {
-                throw new NullReferenceException();
+                _logger.LogErrorSomethingWentWrongWithUser(id);
+                return;
             }
 
             _logger.LogUserDeleteRequestFromDB(user);
@@ -320,6 +336,22 @@ namespace BusinessLayer.Services
         //Strategy pattern
         public double GetUserHasToPay(Guid id)
         {
+            User user;
+            try
+            {
+                user = _repository.GetById(id);
+                if (user == null)
+                {
+                    _logger.LogWarningUserNotExisting(id);
+                    return -1;
+                }
+            }
+            catch
+            {
+                _logger.LogErrorSomethingWentWrongWithUser(id);
+                return -1;
+            }
+
             PaymentService paymentService = new PaymentService(this);
             return paymentService.CalculatePayment(id);
         }
