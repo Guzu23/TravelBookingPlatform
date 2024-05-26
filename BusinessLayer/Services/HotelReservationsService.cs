@@ -1,14 +1,7 @@
 ﻿using BusinessLayer.Contracts;
 using BusinessLayer.Dto;
-using DataAccessLayer;
 using DataAccessLayer.Models;
 using DataAccessLayer.Repository;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLayer.Services
 {

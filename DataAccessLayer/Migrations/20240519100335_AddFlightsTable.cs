@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-#pragma warning disable IDE0058
+﻿#pragma warning disable IDE0058
 #nullable disable
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccessLayer.Migrations
 {

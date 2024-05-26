@@ -1,3 +1,4 @@
+#pragma warning disable IDE0058
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

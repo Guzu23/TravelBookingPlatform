@@ -1,6 +1,4 @@
 #pragma warning disable IDE0058
-using DataAccessLayer;
-using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using BusinessLayer.Dto;
 using BusinessLayer.Services;

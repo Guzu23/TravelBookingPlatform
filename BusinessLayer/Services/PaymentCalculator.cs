@@ -1,10 +1,5 @@
 ﻿using BusinessLayer.Contracts;
 using BusinessLayer.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLayer.Services
 {
@@ -27,8 +22,5 @@ namespace BusinessLayer.Services
 
             return _paymentStrategy.CalculateTotalPrice(userDto, hotelReservationsDtos, flightReservationsDtos);
         }
-
-        // Metodele GetUserHotelReservations, GetUserFlightReservations și GetUser trebuie să fie definite în clasa ta.
     }
-
 }
